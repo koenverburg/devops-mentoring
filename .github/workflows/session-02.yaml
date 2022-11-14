@@ -1,11 +1,9 @@
 name: session 2
 
 on:
+  #extra
   workflow_dispatch:
     inputs:
-  # push:
-  #   branches:
-  #     - main
 
 jobs:
   build:
@@ -32,8 +30,8 @@ jobs:
       - run: npm run export
 
       - name: 'Upload Artifact'
-          uses: actions/upload-artifact@v3
-          with:
-            name: nextjs-build-output
-            path: ./out
-            retention-days: 2
+        uses: actions/upload-artifact@v3
+        with:
+          name: nextjs-build-output
+          path: ./out
+          retention-days: 2
