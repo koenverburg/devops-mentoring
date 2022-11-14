@@ -1,9 +1,11 @@
 name: CI/CD
 
 on:
-  #extra
   workflow_dispatch:
     inputs:
+  # push:
+  #   branches:
+  #     - main
 
 jobs:
   build:
@@ -25,10 +27,13 @@ jobs:
 
       - run: npm install
 
-      # extra
-      - run: npm run lint
-
       - run: npm run build
 
       - run: npm run export
 
+      - name: 'Upload Artifact'
+          uses: actions/upload-artifact@v3
+          with:
+            name: nextjs-build-output
+            path: ./out
+            retention-days: 2
