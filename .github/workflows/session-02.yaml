@@ -38,6 +38,7 @@ jobs:
           name: nextjs-build-output
           path: ./dist
           retention-days: 2
+
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
@@ -47,6 +48,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: nextjs-build-output
+          path: ./dist
+
+      - name: Display structure of downloaded files
+        run: ls -R
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
