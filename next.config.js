@@ -1,15 +1,23 @@
 /** @type {import('next').NextConfig} */
+const isGithubActions = process.env.GITHUB_ACTIONS === 'true' || false
 
-const repo = "devops-mentoring";
+const serverSettings = {}
+
+if (isGithubActions) {
+  // trim off `<owner>/`
+  const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
+
+  serverSettings.basePath = `/${repo}`
+  serverSettings.assetPrefix = `/${repo}/`
+}
 
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  assetPrefix: `/${repo}/`,
-  basePath: `/${repo}`,
   images: {
     unoptimized: true,
   },
+  ...serverSettings,
 };
 
 module.exports = nextConfig;
