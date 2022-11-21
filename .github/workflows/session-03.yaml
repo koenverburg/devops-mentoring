@@ -1,11 +1,10 @@
-name: pr validation
+name: (session 3) pr validation
 
 on:
-  push:
-    branches:
-      - '*'
-      - !main
-      - !gh-pages
+  pull_request:
+    branches-ignore:
+      - main
+      - gh-pages
 
 jobs:
   build:
