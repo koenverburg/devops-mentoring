@@ -1,10 +1,6 @@
 name: (session 3) pr validation
 
-on:
-  pull_request:
-    branches-ignore:
-      - main
-      - gh-pages
+on: [push, pull_request]
 
 jobs:
   build:
@@ -26,8 +22,37 @@ jobs:
 
       - run: npm install
 
+      # extra
       - run: npm run lint
 
       - run: npm run build
 
       - run: npm run export
+
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: nextjs-build-output
+          path: ./dist
+          retention-days: 2
+
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Download nextjs output
+        uses: actions/download-artifact@v3
+        with:
+          name: nextjs-build-output
+          path: ./dist
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
