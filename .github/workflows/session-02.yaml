@@ -3,7 +3,6 @@ name: session 2
 on:
   #extra
   workflow_dispatch:
-    inputs:
 
 jobs:
   build:
