@@ -1,4 +1,4 @@
-name: (session 3) pr validation
+name: (session 3) static ci
 
 on: 
   push:

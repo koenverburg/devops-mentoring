@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  reminder:
+  site:
     uses: koenverburg/.github/.github/workflows/docker-build.yaml@main
     secrets:
       docker_token: ${{ secrets.GHCR_TOKEN }}
