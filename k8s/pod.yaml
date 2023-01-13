@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nextjs
+  labels:
+    app: nextjs
+spec:
+  imagePullSecrets:
+    - name: github-registry
+  containers:
+    - name: site
+      image: ghcr.io/koenverburg/devops-mentoring/nextjs:latest
+      resources:
+        limits:
+          memory: '200Mi'
+        requests:
+          memory: '100Mi'
+      ports:
+        - containerPort: 3000
