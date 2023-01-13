@@ -1,0 +1,19 @@
+name: ci
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  reminder:
+    uses: koenverburg/.github/.github/workflows/docker-build.yaml@main
+    secrets:
+      docker_token: ${{ secrets.GHCR_TOKEN }}
+    with:
+      registry: ghcr.io
+      # platforms: linux/arm/v7
+      image_name: koenverburg/devops-mentoring/nextjs
+      dockerfile_path: ./dockerfile
+      tags: ${{ github.run_number }}, latest
